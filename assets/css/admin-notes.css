@@ -1,0 +1,132 @@
+/* Basic styles for Admin Notes - minimal and WP-friendly */
+.admin-notes-wrap {
+	margin: 16px 0;
+}
+
+.admin-notes-actions {
+	margin-bottom: 12px;
+}
+
+.admin-notes-board {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 12px;
+	align-items: start;
+}
+
+.admin-note-card {
+	padding: 8px;
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	transition: transform .12s ease, box-shadow .12s ease;
+	position: relative;
+	min-height: 80px;
+	overflow: visible;
+}
+
+.admin-note-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.admin-note-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.admin-note-title {
+	font-weight: 600;
+	border: none;
+	background: transparent;
+	font-size: 14px;
+	width: 100%;
+}
+
+.admin-note-title:focus {
+	outline: 2px solid rgba(0, 0, 0, 0.06);
+	border-radius: 4px;
+}
+
+.admin-note-actions button {
+	background: transparent;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.admin-note-body {
+	margin-top: 8px;
+}
+
+.admin-note-checklist {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.admin-note-check-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 0;
+}
+
+.admin-note-check-item .check-drag {
+	cursor: grab;
+	margin-right: 4px;
+}
+
+.check-text {
+	margin-left: 6px;
+}
+
+.admin-note-add-input {
+	width: 100%;
+	padding: 6px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.admin-note-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.admin-note-colors {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.admin-note-color-swatch {
+	width: 22px;
+	height: 22px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	cursor: pointer;
+	padding: 0;
+}
+
+.admin-note-color-picker {
+	width: 34px;
+	height: 28px;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.admin-note-visibility select {
+	border-radius: 4px;
+	padding: 4px;
+}
+
+/* small responsive tweaks */
+@media (max-width:600px) {
+	.admin-notes-board {
+		grid-template-columns: 1fr;
+	}
+}
