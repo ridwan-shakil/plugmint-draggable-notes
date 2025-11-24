@@ -32,6 +32,10 @@ class Admin_Notes_Ajax {
 
 		// New: save visibility
 		add_action( 'wp_ajax_admin_notes_save_visibility', array( $this, 'ajax_save_visibility' ) );
+
+		add_action( 'wp_ajax_admin_notes_update_visibility', array( $this, 'ajax_admin_notes_update_visibility' ) );
+
+		// add_action( 'wp_ajax_admin_notes_update_roles', array( $this, 'ajax_admin_notes_update_roles' ) );
 	}
 
 	/**
@@ -122,6 +126,7 @@ class Admin_Notes_Ajax {
 	 * Save checklist (expects JSON array).
 	 */
 	public function ajax_save_checklist() {
+
 		$this->verify_request();
 		$post_id  = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$check_js = isset( $_POST['checklist'] ) ? wp_unslash( $_POST['checklist'] ) : '[]';
@@ -278,8 +283,39 @@ class Admin_Notes_Ajax {
 			wp_send_json_error( array( 'message' => __( 'Invalid nonce', 'admin-notes' ) ) );
 		}
 
-		if ( ! current_user_can( apply_filters( 'admin_notes_capability', 'edit_posts' ) ) ) {
+		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
+		if ( ! current_user_can( $capability ) ) {
 			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
 		}
 	}
+
+	// Save visibility mode
+	public function ajax_admin_notes_update_visibility() {
+			check_ajax_referer( 'notes_visibility_nonce', 'security' );
+
+			$note_id    = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
+			$visibility = isset( $_POST['visibility'] ) ? sanitize_text_field( $_POST['visibility'] ) : 'me';
+
+		if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
+			update_post_meta( $note_id, '_admin_note_visibility', $visibility );
+			wp_send_json_success( array( 'saved' => true ) );
+		} else {
+			wp_send_json_error( array( 'saved' => false ) );
+		}
+	}
+
+	// Save roles for notes
+	// public function ajax_admin_notes_update_roles() {
+	//  check_ajax_referer( 'admin_notes_nonce', 'security' );
+
+	//  $note_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
+	//  $roles   = isset( $_POST['roles'] ) ? array_map( 'sanitize_text_field', (array) $_POST['roles'] ) : array();
+
+	//  if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
+	//      update_post_meta( $note_id, '_admin_note_roles', $roles );
+	//      wp_send_json_success( array( 'saved' => true ) );
+	//  } else {
+	//      wp_send_json_error( array( 'saved' => false ) );
+	//  }
+	// }
 }

@@ -42,7 +42,7 @@ class Admin_Notes_CPT {
 		$args = array(
 			'labels'          => $labels,
 			'public'          => false,
-			'show_ui'         => false, // We will provide custom UI.
+			'show_ui'         => false, // We provided custom UI.
 			'show_in_menu'    => false,
 			'has_archive'     => false,
 			'supports'        => array( 'title', 'author' ),
@@ -62,15 +62,30 @@ class Admin_Notes_CPT {
 	 * @param bool    $update Update flag.
 	 */
 	public function ensure_order_meta( $post_id, $post, $update ) {
+		// 1. Don't run during autosave
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
+
+		// 2. Get current order
 		$order = get_post_meta( $post_id, '_admin_notes_order', true );
+
+		// 3. If order meta does NOT exist (meta returns '')
 		if ( $order === '' ) {
-			// Place at end by getting max and +1
+
 			global $wpdb;
-			$max = $wpdb->get_var( "SELECT MAX(CAST(meta_value AS UNSIGNED)) FROM {$wpdb->postmeta} WHERE meta_key = '_admin_notes_order'" );
-			$new = ! empty( $max ) ? ( intval( $max ) + 1 ) : 1;
+
+			// 4. Get the highest existing order among all notes
+			$max = $wpdb->get_var(
+				"SELECT MAX(CAST(meta_value AS UNSIGNED))
+             FROM {$wpdb->postmeta}
+             WHERE meta_key = '_admin_notes_order'"
+			);
+
+			// 5. If there's a max, add +1. Otherwise start from 1.
+			$new = ! empty( $max ) ? intval( $max ) + 1 : 1;
+
+			// 6. Assign new order
 			update_post_meta( $post_id, '_admin_notes_order', $new );
 		}
 	}

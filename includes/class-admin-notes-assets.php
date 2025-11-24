@@ -15,7 +15,9 @@ class Admin_Notes_Assets {
 
 	public function enqueue( $hook = '' ) {
 		// Only enqueue on our admin page(s). We check page parameter.
-		if ( isset( $_GET['page'] ) && 'admin-notes' === $_GET['page'] ) {
+		// if ( isset( $_GET['page'] ) && 'admin-notes' === $_GET['page'] )
+
+		if ( $hook === 'toplevel_page_admin-notes' ) {
 			// CSS
 			wp_enqueue_style(
 				'admin-notes-style',
@@ -46,6 +48,23 @@ class Admin_Notes_Assets {
 					),
 				)
 			);
+
+			// JS - visibility change script
+			wp_enqueue_script(
+				'admin-notes-visibility-script',
+				ADMIN_NOTES_URL . 'assets/js/admin-notes-visibility.js',
+				array( 'jquery' ),
+				ADMIN_NOTES_VERSION,
+				true
+			);
+			// wp_localize_script(
+			//  'admin-notes-visibility-script',
+			//  'notesVisibility',
+			//  array(
+			//      'ajax_url' => admin_url( 'admin-ajax.php' ),
+			//      'nonce'    => wp_create_nonce( 'notes_visibility_nonce' ),
+			//  )
+			// );
 		}
 	}
 }

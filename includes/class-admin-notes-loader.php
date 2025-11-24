@@ -7,12 +7,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once ADMIN_NOTES_PATH . 'includes/class-admin-notes-activation.php';
 require_once ADMIN_NOTES_PATH . 'includes/class-admin-notes-cpt.php';
 require_once ADMIN_NOTES_PATH . 'includes/class-admin-notes-admin.php';
 require_once ADMIN_NOTES_PATH . 'includes/class-admin-notes-assets.php';
 require_once ADMIN_NOTES_PATH . 'includes/class-admin-notes-ajax.php';
 
 class Admin_Notes_Loader {
+
+	/** @var Admin_Notes_Activation */
+	protected $activation;
 
 	/** @var Admin_Notes_CPT */
 	protected $cpt;
@@ -27,13 +31,15 @@ class Admin_Notes_Loader {
 	protected $ajax;
 
 	public function __construct() {
-		$this->cpt    = new Admin_Notes_CPT();
-		$this->admin  = new Admin_Notes_Admin();
-		$this->assets = new Admin_Notes_Assets();
-		$this->ajax   = new Admin_Notes_Ajax();
+		$this->activation = new Admin_Notes_Activation();
+		$this->cpt        = new Admin_Notes_CPT();
+		$this->admin      = new Admin_Notes_Admin();
+		$this->assets     = new Admin_Notes_Assets();
+		$this->ajax       = new Admin_Notes_Ajax();
 	}
 
 	public function run() {
+		$this->activation->init();
 		$this->cpt->register();
 		$this->admin->init();
 		$this->assets->init();
@@ -42,7 +48,8 @@ class Admin_Notes_Loader {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
 
+
 	public function load_textdomain() {
-		load_plugin_textdomain( 'admin-notes', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
+		load_plugin_textdomain( 'wp-dashboard-admin-notes', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
 	}
 }
