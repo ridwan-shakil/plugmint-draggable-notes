@@ -30,16 +30,16 @@ class Admin_Notes_Ajax {
 		add_action( 'wp_ajax_admin_notes_toggle_minimize', array( $this, 'ajax_toggle_minimize' ) );
 		add_action( 'wp_ajax_admin_notes_save_order', array( $this, 'ajax_save_order' ) );
 
-		// New: save visibility
+		//  save visibility
 		add_action( 'wp_ajax_admin_notes_save_visibility', array( $this, 'ajax_save_visibility' ) );
 
-		add_action( 'wp_ajax_admin_notes_update_visibility', array( $this, 'ajax_admin_notes_update_visibility' ) );
+		// add_action( 'wp_ajax_admin_notes_update_visibility', array( $this, 'ajax_admin_notes_update_visibility' ) );
 
 		// add_action( 'wp_ajax_admin_notes_update_roles', array( $this, 'ajax_admin_notes_update_roles' ) );
 	}
 
 	/**
-	 * Add new note (creates CPT post and returns rendered HTML).
+	 * Add new note (creates CPT post ).
 	 */
 	public function ajax_add_note() {
 		$this->verify_request();
@@ -57,23 +57,15 @@ class Admin_Notes_Ajax {
 			wp_send_json_error( array( 'message' => $post_id->get_error_message() ) );
 		}
 
-		// Default meta
-		update_post_meta( $post_id, '_admin_notes_checklist', wp_json_encode( array() ) );
-		update_post_meta( $post_id, '_admin_notes_color', '#FFF9C4' );
-		// Default visibility: only the author
-		update_post_meta( $post_id, '_admin_notes_visibility', 'only_me' );
-
-		// ensure order meta set by CPT hook; if not, set quickly
-		$order = get_post_meta( $post_id, '_admin_notes_order', true );
-		if ( '' === $order ) {
-			update_post_meta( $post_id, '_admin_notes_order', time() );
-		}
-
-		// Render card HTML using Admin_Notes_Admin helper
-		$admin = new Admin_Notes_Admin();
-		$html  = $admin->render_note_card( get_post( $post_id ) );
-
-		wp_send_json_success( array( 'html' => $html ) );
+		wp_send_json_success(
+			array(
+				'id'         => $post_id,
+				'title'      => __( 'Untitled Note', 'admin-notes' ),
+				'color'      => '#FFF9C4',
+				'visibility' => 'only_me',
+				'checklist'  => array(),
+			)
+		);
 	}
 
 	/**
@@ -270,7 +262,13 @@ class Admin_Notes_Ajax {
 			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
 		}
 
-		update_post_meta( $post_id, '_admin_notes_visibility', $visibility );
+		// Check if the value is actually changing
+		$current_visibility = get_post_meta( $post_id, '_admin_note_visibility', true );
+		if ( $current_visibility === $visibility ) {
+			// No update needed, return success anyway since the desired state is met
+			wp_send_json_success();
+		}
+		$check = update_post_meta( $post_id, '_admin_note_visibility', $visibility );
 
 		wp_send_json_success();
 	}
@@ -290,19 +288,19 @@ class Admin_Notes_Ajax {
 	}
 
 	// Save visibility mode
-	public function ajax_admin_notes_update_visibility() {
-			check_ajax_referer( 'notes_visibility_nonce', 'security' );
+	// public function ajax_admin_notes_update_visibility() {
+	//      check_ajax_referer( 'notes_visibility_nonce', 'security' );
 
-			$note_id    = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
-			$visibility = isset( $_POST['visibility'] ) ? sanitize_text_field( $_POST['visibility'] ) : 'me';
+	//      $note_id    = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
+	//      $visibility = isset( $_POST['visibility'] ) ? sanitize_text_field( $_POST['visibility'] ) : 'me';
 
-		if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
-			update_post_meta( $note_id, '_admin_note_visibility', $visibility );
-			wp_send_json_success( array( 'saved' => true ) );
-		} else {
-			wp_send_json_error( array( 'saved' => false ) );
-		}
-	}
+	//  if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
+	//      update_post_meta( $note_id, '_admin_note_visibility', $visibility );
+	//      wp_send_json_success( array( 'saved' => true ) );
+	//  } else {
+	//      wp_send_json_error( array( 'saved' => false ) );
+	//  }
+	// }
 
 	// Save roles for notes
 	// public function ajax_admin_notes_update_roles() {

@@ -1,18 +1,29 @@
 <?php
 /**
- * Uninstall handler for WP Dashboard Admin Notes.
+ * Fired when the plugin is uninstalled.
  *
- * This file is executed when the plugin is uninstalled.
- *
- * We do not remove posts automatically to avoid accidental data loss.
- * If you'd like to remove all plugin data on uninstall, implement it here.
- *
- * @package admin-notes
+ * Deletes the Custom Post Type, all associated posts, and post meta.
  */
 
+// If uninstall not called from WordPress, exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// Example: Remove plugin options or usermeta if you choose.
-// delete_option( 'admin_notes_some_option' );
+/**
+ * 1. Delete all posts of the custom post type
+ */
+$admin_notes = get_posts(
+	array(
+		'post_type'      => 'admin_note',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+		'post_status'    => 'any',
+	)
+);
+
+if ( $admin_notes ) {
+	foreach ( $admin_notes as $note_id ) {
+		wp_delete_post( $post_id, true );
+	}
+}

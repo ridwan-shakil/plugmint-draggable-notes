@@ -73,7 +73,7 @@ class Admin_Notes_Admin {
 									</li>
 									<li>
 										<strong><?php esc_html_e( 'Checklists:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Add tasks, check them off, delete them, and reorder them as needed.', 'admin-notes' ); ?>
+										<?php esc_html_e( ' Add tasks, Dubble click to edit, check them off, click "X" to delete them, reorder them as needed.', 'admin-notes' ); ?>
 									</li>
 									<li>
 										<strong><?php esc_html_e( 'Drag & reorder:  ', 'admin-notes' ); ?></strong>
@@ -199,11 +199,6 @@ class Admin_Notes_Admin {
 			if ( user_can( $user_id, 'manage_options' ) ) {
 				return true;
 			}
-			// fallback: check role 'administrator'
-			// $user = get_userdata( $user_id );
-			// if ( $user && is_array( $user->roles ) && in_array( 'administrator', $user->roles, true ) ) {
-			//  return true;
-			// }
 			return false;
 		}
 
@@ -241,8 +236,8 @@ class Admin_Notes_Admin {
 		}
 
 		// Visibility
-		$visibility = get_post_meta( $post_id, '_admin_note_visibility', true );
-		$visibility = $visibility ? sanitize_key( $visibility ) : 'only_me';
+		$visibility         = get_post_meta( $post_id, '_admin_note_visibility', true );
+		$visibility         = $visibility ? sanitize_key( $visibility ) : 'only_me';
 
 		// Collapsed state
 		$user_min  = get_user_meta( get_current_user_id(), 'admin_notes_minimized', true );
@@ -285,14 +280,14 @@ class Admin_Notes_Admin {
 					$done     = ( ! empty( $item->completed ) ) ? 'checked' : '';
 					?>
 					<li class="admin-note-check-item" data-item-id="<?php echo esc_attr( $item_id ); ?>">
-						<span class="check-drag">⋮</span>
+						<span class="check-drag">☰</span>
 
 						<label>
 							<input type="checkbox"
 									class="check-toggle"
 									<?php echo $done; ?> />
 
-							<span class="check-text" contenteditable="true" <?php echo $done ? 'style="text-decoration:line-through;"' : ''; ?>><?php echo esc_html( $item_txt ); ?></span>
+							<span class="check-text" contenteditable="true" <?php echo $done ? 'style="text-decoration:line-through; opacity: 0.6"' : ''; ?>><?php echo esc_html( $item_txt ); ?></span>
 
 						</label>
 

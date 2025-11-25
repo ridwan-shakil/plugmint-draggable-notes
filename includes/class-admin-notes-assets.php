@@ -26,16 +26,20 @@ class Admin_Notes_Assets {
 				ADMIN_NOTES_VERSION
 			);
 
-			// JS - use vanilla JS but we include wp-i18n and wp-api if needed later. Use wp_localize_script for nonce.
+			// ---------------------------
+			// JS - Use wp_localize_script for ajax.
+			// ---------------------------
+			// jQuery UI Sortable
+			wp_enqueue_script(
+				'jquery-ui-sortable'
+			);
 			wp_enqueue_script(
 				'admin-notes-script',
 				ADMIN_NOTES_URL . 'assets/js/admin-notes.js',
-				array(),
+				array( 'jquery', 'jquery-ui-sortable' ),
 				ADMIN_NOTES_VERSION,
 				true
 			);
-
-			// Localize for AJAX
 			wp_localize_script(
 				'admin-notes-script',
 				'AdminNotes',
@@ -48,23 +52,6 @@ class Admin_Notes_Assets {
 					),
 				)
 			);
-
-			// JS - visibility change script
-			wp_enqueue_script(
-				'admin-notes-visibility-script',
-				ADMIN_NOTES_URL . 'assets/js/admin-notes-visibility.js',
-				array( 'jquery' ),
-				ADMIN_NOTES_VERSION,
-				true
-			);
-			// wp_localize_script(
-			//  'admin-notes-visibility-script',
-			//  'notesVisibility',
-			//  array(
-			//      'ajax_url' => admin_url( 'admin-ajax.php' ),
-			//      'nonce'    => wp_create_nonce( 'notes_visibility_nonce' ),
-			//  )
-			// );
 		}
 	}
 }

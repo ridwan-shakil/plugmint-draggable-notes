@@ -152,8 +152,7 @@ p.admin-notes-actions {
 	gap: 8px;
 	padding: 6px 8px;
 	border-radius: 6px 6px 0 0;
-	/* background-color: #f5f5f5; */
-	cursor: grab;
+	cursor: move;
 	transition: background 0.15s ease;
 	border-width: 3px 0 0;
 	border-color: gray;
@@ -168,7 +167,7 @@ p.admin-notes-actions {
 .admin-note-drag-handle {
 	font-size: 160px;
 	opacity: 0.6;
-	cursor: grab;
+	cursor: move;
 	transition: opacity 0.15s ease;
 }
 
@@ -254,8 +253,7 @@ span.check-drag {
 }
 
 .admin-note-check-item .check-drag {
-	cursor: grab;
-	margin-right: 6px;
+	cursor: move;
 }
 
 span.admin-note-drag-handle {
