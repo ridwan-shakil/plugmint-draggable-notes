@@ -32,10 +32,6 @@ class Admin_Notes_Ajax {
 
 		//  save visibility
 		add_action( 'wp_ajax_admin_notes_save_visibility', array( $this, 'ajax_save_visibility' ) );
-
-		// add_action( 'wp_ajax_admin_notes_update_visibility', array( $this, 'ajax_admin_notes_update_visibility' ) );
-
-		// add_action( 'wp_ajax_admin_notes_update_roles', array( $this, 'ajax_admin_notes_update_roles' ) );
 	}
 
 	/**
@@ -73,6 +69,8 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_delete_note() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
+
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 
 		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
@@ -93,6 +91,8 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_save_title() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
+
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$title   = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : '';
 
@@ -118,8 +118,9 @@ class Admin_Notes_Ajax {
 	 * Save checklist (expects JSON array).
 	 */
 	public function ajax_save_checklist() {
-
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
+
 		$post_id  = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$check_js = isset( $_POST['checklist'] ) ? wp_unslash( $_POST['checklist'] ) : '[]';
 
@@ -157,6 +158,8 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_save_color() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
+
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$color   = isset( $_POST['color'] ) ? sanitize_hex_color( wp_unslash( $_POST['color'] ) ) : '';
 
@@ -179,6 +182,8 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_toggle_minimize() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
+
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$state   = isset( $_POST['state'] ) ? boolval( $_POST['state'] ) : false;
 
@@ -210,6 +215,7 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_save_order() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
 
 		$order = isset( $_POST['order'] ) ? wp_unslash( $_POST['order'] ) : '';
 		$ids   = array();
@@ -244,6 +250,7 @@ class Admin_Notes_Ajax {
 	 */
 	public function ajax_save_visibility() {
 		$this->verify_request();
+		wp_verify_nonce( $_POST['nonce'], 'admin_notes_nonce' );
 
 		$post_id    = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$visibility = isset( $_POST['visibility'] ) ? sanitize_text_field( wp_unslash( $_POST['visibility'] ) ) : '';
@@ -286,34 +293,4 @@ class Admin_Notes_Ajax {
 			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
 		}
 	}
-
-	// Save visibility mode
-	// public function ajax_admin_notes_update_visibility() {
-	//      check_ajax_referer( 'notes_visibility_nonce', 'security' );
-
-	//      $note_id    = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
-	//      $visibility = isset( $_POST['visibility'] ) ? sanitize_text_field( $_POST['visibility'] ) : 'me';
-
-	//  if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
-	//      update_post_meta( $note_id, '_admin_note_visibility', $visibility );
-	//      wp_send_json_success( array( 'saved' => true ) );
-	//  } else {
-	//      wp_send_json_error( array( 'saved' => false ) );
-	//  }
-	// }
-
-	// Save roles for notes
-	// public function ajax_admin_notes_update_roles() {
-	//  check_ajax_referer( 'admin_notes_nonce', 'security' );
-
-	//  $note_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
-	//  $roles   = isset( $_POST['roles'] ) ? array_map( 'sanitize_text_field', (array) $_POST['roles'] ) : array();
-
-	//  if ( $note_id && current_user_can( 'edit_post', $note_id ) ) {
-	//      update_post_meta( $note_id, '_admin_note_roles', $roles );
-	//      wp_send_json_success( array( 'saved' => true ) );
-	//  } else {
-	//      wp_send_json_error( array( 'saved' => false ) );
-	//  }
-	// }
 }

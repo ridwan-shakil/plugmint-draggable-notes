@@ -110,6 +110,12 @@ p.admin-notes-actions {
 }
 
 /* Note card */
+p.admin-notes-empty {
+	font-weight: bold;
+	font-size: 19px;
+	text-align: center;
+}
+
 .admin-note-card {
 	border-radius: 10px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08);

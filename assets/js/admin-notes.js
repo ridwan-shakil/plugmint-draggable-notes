@@ -1,50 +1,56 @@
 jQuery(function ($) {
-
 	// -----------------------------
 	// AJAX helper
 	// -----------------------------
 	function postAjax(data, callback) {
-		$.post(AdminNotes.ajax_url, data, function (response) {
-			if (typeof callback === "function") {
-				callback(response);
-			}
-		}, "json");
+		$.post(
+			AdminNotes.ajax_url,
+			data,
+			function (response) {
+				if (typeof callback === "function") {
+					callback( response );
+				}
+			},
+			"json"
+		);
 	}
 
-	// -----------------------------------------------------------
+	// -------------------------------
 	// ADD NEW NOTE
-	// -----------------------------------------------------------
+	// -------------------------------
 	$("#admin-notes-add").on("click", function () {
 		$btn = $(this);
-		$btn.prop("disabled",true);
+		$btn.prop("disabled", true);
 		// Background AJAX — WordPress
-		postAjax({
-			action: "admin_notes_add",
-			nonce: AdminNotes.nonce
-		}, function (res) {
+		postAjax(
+			{
+				action: "admin_notes_add",
+				nonce: AdminNotes.nonce,
+			},
+			function (res) {
+				// if fails → show error
+				if (!res || !res.success) {
+					alert("Error: Could not create note");
+					return;
+				}
 
-			// if fails → show error
-			if (!res || !res.success) {
-				alert("Error: Could not create note");
-				return;
+				// Render a new note if post created successfully
+				const $newCard = createNoteCard(res.data);
+				$("#admin-notes-board").append($newCard);
+				bindCard($newCard);
+				refreshBoardSortable();
+
+				// Enable button & page scroll to bottom
+				$btn.prop("disabled", false);
+
+				$("html, body").animate(
+					{
+						scrollTop: $(document).height(),
+					},
+					1000
+				);
 			}
-
-			// Render a new note if post created successfully
-			const $newCard = createNoteCard(res.data);
-			$("#admin-notes-board").append($newCard);
-			bindCard($newCard);
-			refreshBoardSortable();
-
-
-			// Enable button & page scroll to bottom 
-			$btn.prop("disabled",false);
-
-			$("html, body").animate({
-			scrollTop: $(document).height()
-			}, 1000); 
-		});
-		
-
+		);
 	});
 
 	// CREATE NOTE CARD — supports temp ID + real ID
@@ -85,12 +91,20 @@ jQuery(function ($) {
 	// FOOTER HTML
 	function noteFooterHTML(data) {
 		const presets = [
-			'#bae6fd', '#d9f99d', '#bbf7d0', '#c7d2fe', '#e9d5ff',
-			'#fbcfe8', '#ffd9d9', '#fed7aa', '#fef08a'
+			"#bae6fd",
+			"#d9f99d",
+			"#bbf7d0",
+			"#c7d2fe",
+			"#e9d5ff",
+			"#fbcfe8",
+			"#ffd9d9",
+			"#fed7aa",
+			"#fef08a",
 		];
 
-		const presetButtons = presets.map(c => {
-			return `
+		const presetButtons = presets
+			.map((c) => {
+				return `
 				<button class="admin-note-color-swatch"
 					data-color="${c}"
 					data-note-id="${data.id}"
@@ -98,7 +112,8 @@ jQuery(function ($) {
 					style="background:${c}">
 				</button>
 			`;
-		}).join('');
+			})
+			.join("");
 
 		return `
 			<div class="admin-note-footer">
@@ -123,19 +138,17 @@ jQuery(function ($) {
 		`;
 	}
 
-
-
 	// -----------------------------
 	// Bind card events
 	// -----------------------------
 	function bindCard($card) {
-
 		const noteID = $card.data("note-id");
 
 		/** ------------------------
 		 * Title editing
 		 * ---------------------- */
-		$card.find(".admin-note-title")
+		$card
+			.find(".admin-note-title")
 			.on("blur", saveTitle)
 			.on("keydown", function (e) {
 				if (e.key === "Enter") {
@@ -149,7 +162,7 @@ jQuery(function ($) {
 				action: "admin_notes_save_title",
 				note_id: noteID,
 				nonce: AdminNotes.nonce,
-				title: $(this).val()
+				title: $(this).val(),
 			});
 		}
 
@@ -160,18 +173,21 @@ jQuery(function ($) {
 			if (!confirm("Delete this note?")) return;
 
 			// instantly hide from frontend
-			$(this).closest('.admin-note-card').hide();
+			$(this).closest(".admin-note-card").hide();
 
-			postAjax({
-				action: "admin_notes_delete",
-				nonce: AdminNotes.nonce,
-				note_id: noteID
-			}, function (res) {
-				if (res.success) {
-					$card.remove();
-					saveBoardOrder();
+			postAjax(
+				{
+					action: "admin_notes_delete",
+					nonce: AdminNotes.nonce,
+					note_id: noteID,
+				},
+				function (res) {
+					if (res.success) {
+						$card.remove();
+						saveBoardOrder();
+					}
 				}
-			});
+			);
 		});
 
 		/** ------------------------
@@ -188,7 +204,7 @@ jQuery(function ($) {
 				action: "admin_notes_toggle_minimize",
 				note_id: noteID,
 				state: isClosed ? 1 : 0,
-				nonce: AdminNotes.nonce
+				nonce: AdminNotes.nonce,
 			});
 		});
 
@@ -242,15 +258,17 @@ jQuery(function ($) {
 
 			$card_header = $card.children(".admin-note-header");
 			$card_header.css("background", color);
-			$card_header.css("borderTop",`4px solid color-mix(in srgb, ${color} 90%, black 10% `);
+			$card_header.css(
+				"borderTop",
+				`4px solid color-mix(in srgb, ${color} 90%, black 10% `
+			);
 			$card.css("background", `color-mix(in srgb, ${color} 55%, white 45%)`);
-
 
 			postAjax({
 				action: "admin_notes_save_color",
 				note_id: noteID,
 				color,
-				nonce: AdminNotes.nonce
+				nonce: AdminNotes.nonce,
 			});
 		});
 
@@ -258,32 +276,33 @@ jQuery(function ($) {
 			const color = $(this).val();
 			$card_header = $card.children(".admin-note-header");
 			$card_header.css("background", color);
-			$card_header.css("borderTop",`4px solid color-mix(in srgb, ${color} 90%, black 10% `);
+			$card_header.css(
+				"borderTop",
+				`4px solid color-mix(in srgb, ${color} 90%, black 10% `
+			);
 			$card.css("background", `color-mix(in srgb, ${color} 55%, white 45%)`);
 
 			postAjax({
 				action: "admin_notes_save_color",
 				note_id: noteID,
 				color,
-				nonce: AdminNotes.nonce
+				nonce: AdminNotes.nonce,
 			});
 		});
 
-
 		// -------------------------------
-		// Visibility update on change 
+		// Visibility update on change
 		// -------------------------------
-		$card.find(".admin-note-visibility-select").on('change',function() {
+		$card.find(".admin-note-visibility-select").on("change", function () {
 			const visibility = $(this).val();
 
 			postAjax({
 				action: "admin_notes_save_visibility",
 				note_id: noteID,
 				visibility,
-				nonce: AdminNotes.nonce
+				nonce: AdminNotes.nonce,
 			});
-		})
-
+		});
 	}
 
 	// -----------------------------
@@ -309,10 +328,9 @@ jQuery(function ($) {
 			saveChecklist($card);
 		});
 
-
 		/** inline edit - USE DBLCLICK */
 		$text.on("dblclick", function (e) {
-			e.stopPropagation(); 
+			e.stopPropagation();
 
 			const old = $text.text();
 			const $input = $(`<input type="text" value="${old}" class="check-edit">`);
@@ -331,9 +349,6 @@ jQuery(function ($) {
 				saveChecklist($card);
 			});
 		});
-
-
-
 	}
 
 	// -----------------------------
@@ -347,7 +362,7 @@ jQuery(function ($) {
 			data.push({
 				id: $(this).data("item-id"),
 				text: $(this).find(".check-text").text(),
-				completed: $(this).find(".check-toggle").is(":checked") ? 1 : 0
+				completed: $(this).find(".check-toggle").is(":checked") ? 1 : 0,
 			});
 		});
 
@@ -355,52 +370,106 @@ jQuery(function ($) {
 			action: "admin_notes_save_checklist",
 			nonce: AdminNotes.nonce,
 			note_id: noteID,
-			checklist: JSON.stringify(data)
+			checklist: JSON.stringify(data),
 		});
 	}
 
 	// -----------------------------
 	// NOTE DRAGGING (jQuery UI Sortable)
 	// -----------------------------
+	// function refreshBoardSortable() {
+	// 	$("#admin-notes-board").sortable({
+	// 		handle: ".admin-note-header",
+	// 		placeholder: "admin-note-placeholder",
+	// 		update: saveBoardOrder,
+	// 	});
+	// }
+	
+// =================================== test starts
+
 	function refreshBoardSortable() {
 		$("#admin-notes-board").sortable({
 			handle: ".admin-note-header",
 			placeholder: "admin-note-placeholder",
-			update: saveBoardOrder
+			 dropOnEmpty: true, 
+			 opacity: 0.8,
+			 scroll: true,
+			 forcePlaceholderSize: true,
+			update: saveBoardOrder,
 		});
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =================================== test ends
+
+
 	function saveBoardOrder() {
-    const order = $("#admin-notes-board .admin-note-card")
-        .map(function () {
-            const id = $(this).data("note-id");
-            return id;
-        })
-        .get()
-        .filter(Boolean); // remove nulls
+		const order = $("#admin-notes-board .admin-note-card")
+			.map(function () {
+				const id = $(this).data("note-id");
+				return id;
+			})
+			.get()
+			.filter(Boolean); // remove nulls
 
-
-    postAjax({
-        action: "admin_notes_save_order",
-        nonce: AdminNotes.nonce,
-        order: JSON.stringify(order)
-    });
-}
-
+		postAjax({
+			action: "admin_notes_save_order",
+			nonce: AdminNotes.nonce,
+			order: JSON.stringify(order),
+		});
+	}
 
 	// -----------------------------
 	// CHECKLIST SORTABLE
 	// -----------------------------
+	// function refreshChecklistSortable($list) {
+	// 	$list.sortable({
+	// 		handle: ".check-drag",
+	// 		placeholder: "check-placeholder",
+	// 		update: function () {
+	// 			saveChecklist($list.closest(".admin-note-card"));
+	// 		},
+	// 	});
+	// }
+
+
+// =============================== test start
+
+
 	function refreshChecklistSortable($list) {
 		$list.sortable({
 			handle: ".check-drag",
 			placeholder: "check-placeholder",
+			connectWith: ".admin-note-checklist", //to drag & drop between notes
+			forcePlaceholderSize: true,
 			update: function () {
 				saveChecklist($list.closest(".admin-note-card"));
-			}
+			},
 		});
-		 
 	}
+
+
+
+
+
+// =============================== test end
+
+
+
+
 
 	// -----------------------------
 	// INIT
@@ -408,7 +477,5 @@ jQuery(function ($) {
 	$(".admin-note-card").each(function () {
 		bindCard($(this));
 	});
-
 	refreshBoardSortable();
-
 });

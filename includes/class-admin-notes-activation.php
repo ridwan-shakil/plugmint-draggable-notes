@@ -30,14 +30,20 @@ class Admin_Notes_Activation {
 		);
 	}
 
+
 	/**
 	 * Redirect user to plugin settings after activation.
 	 */
 	public function handle_redirect() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		if ( get_option( 'admin_notes_do_activation_redirect', false ) ) {
 			delete_option( 'admin_notes_do_activation_redirect' );
 
 			// Do not redirect during network/bulk activations.
+			// This is a system check, not user-supplied form data.
 			if ( isset( $_GET['activate-multi'] ) ) {
 				return;
 			}

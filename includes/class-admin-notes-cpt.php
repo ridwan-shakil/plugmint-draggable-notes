@@ -56,12 +56,9 @@ class Admin_Notes_CPT {
 
 	/**
 	 * Ensure an order meta exists.
-	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post Post object.
-	 * @param bool    $update Update flag.
+	 * @param int   $post_id Post ID.
 	 */
-	public function ensure_order_meta( $post_id, $post, $update ) {
+	public function ensure_order_meta( $post_id ) {
 		// 1. Don't run during autosave
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
@@ -71,7 +68,7 @@ class Admin_Notes_CPT {
 		$order = get_post_meta( $post_id, '_admin_notes_order', true );
 
 		// 3. If order meta does NOT exist (meta returns '')
-		if ( $order === '' ) {
+		if ( '' === $order ) {
 
 			global $wpdb;
 

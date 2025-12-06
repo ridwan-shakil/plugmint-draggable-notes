@@ -73,7 +73,7 @@ class Admin_Notes_Admin {
 									</li>
 									<li>
 										<strong><?php esc_html_e( 'Checklists:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Add tasks, Dubble click to edit, check them off, click "X" to delete them, reorder them as needed.', 'admin-notes' ); ?>
+										<?php esc_html_e( ' Add tasks, Dubble click to edit, check them off, click "X" to delete them, reorder them as needed & even move note items from one note to another! ', 'admin-notes' ); ?>
 									</li>
 									<li>
 										<strong><?php esc_html_e( 'Drag & reorder:  ', 'admin-notes' ); ?></strong>
@@ -116,7 +116,7 @@ class Admin_Notes_Admin {
 			<div id="admin-notes-board" class="admin-notes-board" aria-live="polite">
 				<?php
 				if ( empty( $notes ) ) {
-					echo '<p class="admin-notes-empty">' . esc_html__( 'No notes yet. Click "Add New Note" to create one.', 'admin-notes' ) . '</p>';
+					echo '<br> <p class="admin-notes-empty">' . esc_html__( 'No notes yet. Click "Add New Note" to create one.', 'admin-notes' ) . '</p>';
 				} else {
 					foreach ( $notes as $note ) {
 						// Rendering full HTML template; all variables inside are escaped.
@@ -127,7 +127,7 @@ class Admin_Notes_Admin {
 				?>
 			</div>
 			<!-- placeholder for toasts --> 
-			<div id="admin-notes-toast" aria-hidden="true"></div> 
+			<!-- <div id="admin-notes-toast" aria-hidden="true"></div>  -->
 			
 		</div>
 		<?php
@@ -236,8 +236,8 @@ class Admin_Notes_Admin {
 		}
 
 		// Visibility
-		$visibility         = get_post_meta( $post_id, '_admin_note_visibility', true );
-		$visibility         = $visibility ? sanitize_key( $visibility ) : 'only_me';
+		$visibility = get_post_meta( $post_id, '_admin_note_visibility', true );
+		$visibility = $visibility ? sanitize_key( $visibility ) : 'only_me';
 
 		// Collapsed state
 		$user_min  = get_user_meta( get_current_user_id(), 'admin_notes_minimized', true );
@@ -285,7 +285,7 @@ class Admin_Notes_Admin {
 						<label>
 							<input type="checkbox"
 									class="check-toggle"
-									<?php echo $done; ?> />
+									<?php echo esc_html( $done ); ?> />
 
 							<span class="check-text" contenteditable="true" <?php echo $done ? 'style="text-decoration:line-through; opacity: 0.6"' : ''; ?>><?php echo esc_html( $item_txt ); ?></span>
 

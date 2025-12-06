@@ -17,7 +17,7 @@ class Admin_Notes_Assets {
 		// Only enqueue on our admin page(s). We check page parameter.
 		// if ( isset( $_GET['page'] ) && 'admin-notes' === $_GET['page'] )
 
-		if ( $hook === 'toplevel_page_admin-notes' ) {
+		if ( 'toplevel_page_admin-notes' === $hook ) {
 			// CSS
 			wp_enqueue_style(
 				'admin-notes-style',

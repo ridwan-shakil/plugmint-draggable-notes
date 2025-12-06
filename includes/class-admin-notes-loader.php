@@ -50,6 +50,6 @@ class Admin_Notes_Loader {
 
 
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-dashboard-admin-notes', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
+		load_plugin_textdomain( 'admin-notes', false, dirname( plugin_basename( __FILE__ ) ) . '/../languages' );
 	}
 }
