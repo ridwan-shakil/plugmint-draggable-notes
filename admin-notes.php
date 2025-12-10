@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Admin Notes
+ * Plugin Name:       WP Draggable Admin Notes
  * Plugin URI:        https://example.com/
  * Description:       Create draggable admin notes with checklist tasks in the WP admin.
  * Version:           1.0.0

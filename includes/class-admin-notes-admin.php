@@ -115,9 +115,7 @@ class Admin_Notes_Admin {
 			<!-- All Notes  -->
 			<div id="admin-notes-board" class="admin-notes-board" aria-live="polite">
 				<?php
-				if ( empty( $notes ) ) {
-					echo '<br> <p class="admin-notes-empty">' . esc_html__( 'No notes yet. Click "Add New Note" to create one.', 'admin-notes' ) . '</p>';
-				} else {
+				if ( ! empty( $notes ) ) {
 					foreach ( $notes as $note ) {
 						// Rendering full HTML template; all variables inside are escaped.
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -126,9 +124,7 @@ class Admin_Notes_Admin {
 				}
 				?>
 			</div>
-			<!-- placeholder for toasts --> 
-			<!-- <div id="admin-notes-toast" aria-hidden="true"></div>  -->
-			
+
 		</div>
 		<?php
 	}

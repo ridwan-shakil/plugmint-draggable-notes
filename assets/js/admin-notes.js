@@ -8,7 +8,7 @@ jQuery(function ($) {
 			data,
 			function (response) {
 				if (typeof callback === "function") {
-					callback( response );
+					callback(response);
 				}
 			},
 			"json"
@@ -53,7 +53,7 @@ jQuery(function ($) {
 		);
 	});
 
-	// CREATE NOTE CARD — supports temp ID + real ID
+	// CREATE NOTE CARD
 	function createNoteCard(data) {
 		return $(`
 			<div class="admin-note-card" data-note-id="${data.id}"
@@ -132,7 +132,7 @@ jQuery(function ($) {
 				</div>
 
 				<div class="total-items">
-					<p>${data.task_count ?? 0} Tasks</p>
+					<p>${0} Tasks</p>
 				</div>
 			</div>
 		`;
@@ -377,43 +377,17 @@ jQuery(function ($) {
 	// -----------------------------
 	// NOTE DRAGGING (jQuery UI Sortable)
 	// -----------------------------
-	// function refreshBoardSortable() {
-	// 	$("#admin-notes-board").sortable({
-	// 		handle: ".admin-note-header",
-	// 		placeholder: "admin-note-placeholder",
-	// 		update: saveBoardOrder,
-	// 	});
-	// }
-	
-// =================================== test starts
-
 	function refreshBoardSortable() {
 		$("#admin-notes-board").sortable({
 			handle: ".admin-note-header",
 			placeholder: "admin-note-placeholder",
-			 dropOnEmpty: true, 
-			 opacity: 0.8,
-			 scroll: true,
-			 forcePlaceholderSize: true,
+			dropOnEmpty: true,
+			opacity: 0.8,
+			scroll: true,
+			forcePlaceholderSize: true,
 			update: saveBoardOrder,
 		});
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =================================== test ends
 
 
 	function saveBoardOrder() {
@@ -435,20 +409,6 @@ jQuery(function ($) {
 	// -----------------------------
 	// CHECKLIST SORTABLE
 	// -----------------------------
-	// function refreshChecklistSortable($list) {
-	// 	$list.sortable({
-	// 		handle: ".check-drag",
-	// 		placeholder: "check-placeholder",
-	// 		update: function () {
-	// 			saveChecklist($list.closest(".admin-note-card"));
-	// 		},
-	// 	});
-	// }
-
-
-// =============================== test start
-
-
 	function refreshChecklistSortable($list) {
 		$list.sortable({
 			handle: ".check-drag",
@@ -460,16 +420,6 @@ jQuery(function ($) {
 			},
 		});
 	}
-
-
-
-
-
-// =============================== test end
-
-
-
-
 
 	// -----------------------------
 	// INIT
