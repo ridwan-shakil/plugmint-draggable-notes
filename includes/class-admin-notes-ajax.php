@@ -5,7 +5,7 @@
  * Provides simple endpoints for managing notes (add, delete, save, order, visibility, etc.).
  * All endpoints expect a valid nonce and capability checks.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */
@@ -51,7 +51,7 @@ class Admin_Notes_Ajax {
 		$this->verify_request();
 
 		$defaults = array(
-			'post_title'  => __( 'Untitled Note', 'admin-notes' ),
+			'post_title'  => __( 'Untitled Note', 'draggable-notes' ),
 			'post_status' => 'publish',
 			'post_type'   => 'admin_note',
 			'post_author' => get_current_user_id(),
@@ -66,7 +66,7 @@ class Admin_Notes_Ajax {
 		wp_send_json_success(
 			array(
 				'id'         => $post_id,
-				'title'      => __( 'Untitled Note', 'admin-notes' ),
+				'title'      => __( 'Untitled Note', 'draggable-notes' ),
 				'color'      => '#FFF9C4',
 				'visibility' => 'only_me',
 				'checklist'  => array(),
@@ -87,11 +87,11 @@ class Admin_Notes_Ajax {
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 
 		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'draggable-notes' ) ) );
 		}
 
 		if ( ! current_user_can( 'delete_post', $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
 
 		wp_delete_post( $post_id, true );
@@ -118,7 +118,7 @@ class Admin_Notes_Ajax {
 		}
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
 
 		wp_update_post(
@@ -148,7 +148,7 @@ class Admin_Notes_Ajax {
 			wp_send_json_error();
 		}
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
 
 		$decoded = json_decode( wp_unslash( $check_js ) );
@@ -259,7 +259,7 @@ class Admin_Notes_Ajax {
 		}
 
 		if ( empty( $ids ) || ! is_array( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid order data', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid order data', 'draggable-notes' ) ) );
 		}
 
 		$index = 1;
@@ -289,15 +289,15 @@ class Admin_Notes_Ajax {
 		$allowed = array( 'only_me', 'all_admins', 'editors_and_above' );
 
 		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'draggable-notes' ) ) );
 		}
 
 		if ( ! in_array( $visibility, $allowed, true ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid visibility value', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid visibility value', 'draggable-notes' ) ) );
 		}
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
 
 		// Check if the value is actually changing.
@@ -322,13 +322,13 @@ class Admin_Notes_Ajax {
 		// Capability check.
 		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
 		if ( ! current_user_can( $capability ) ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
 
 		// Nonce verification.
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $nonce, 'admin_notes_nonce' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid nonce', 'admin-notes' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid nonce', 'draggable-notes' ) ) );
 		}
 	}
 }

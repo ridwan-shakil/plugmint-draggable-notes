@@ -2,7 +2,7 @@
 /**
  * Register the admin_note CPT.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */
@@ -32,18 +32,18 @@ class Admin_Notes_CPT {
 	 */
 	public function register_cpt() {
 		$labels = array(
-			'name'               => __( 'Admin Notes', 'admin-notes' ),
-			'singular_name'      => __( 'Admin Note', 'admin-notes' ),
-			'add_new'            => __( 'Add Note', 'admin-notes' ),
-			'add_new_item'       => __( 'Add New Note', 'admin-notes' ),
-			'edit_item'          => __( 'Edit Note', 'admin-notes' ),
-			'new_item'           => __( 'New Note', 'admin-notes' ),
-			'all_items'          => __( 'All Notes', 'admin-notes' ),
-			'view_item'          => __( 'View Note', 'admin-notes' ),
-			'search_items'       => __( 'Search Notes', 'admin-notes' ),
-			'not_found'          => __( 'No notes found', 'admin-notes' ),
-			'not_found_in_trash' => __( 'No notes found in Trash', 'admin-notes' ),
-			'menu_name'          => __( 'Admin Notes', 'admin-notes' ),
+			'name'               => __( 'Admin Notes', 'draggable-notes' ),
+			'singular_name'      => __( 'Admin Note', 'draggable-notes' ),
+			'add_new'            => __( 'Add Note', 'draggable-notes' ),
+			'add_new_item'       => __( 'Add New Note', 'draggable-notes' ),
+			'edit_item'          => __( 'Edit Note', 'draggable-notes' ),
+			'new_item'           => __( 'New Note', 'draggable-notes' ),
+			'all_items'          => __( 'All Notes', 'draggable-notes' ),
+			'view_item'          => __( 'View Note', 'draggable-notes' ),
+			'search_items'       => __( 'Search Notes', 'draggable-notes' ),
+			'not_found'          => __( 'No notes found', 'draggable-notes' ),
+			'not_found_in_trash' => __( 'No notes found in Trash', 'draggable-notes' ),
+			'menu_name'          => __( 'Admin Notes', 'draggable-notes' ),
 		);
 
 		$args = array(

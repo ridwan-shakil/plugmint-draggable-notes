@@ -5,7 +5,7 @@
  * This file is responsible for setting up initial options,
  * managing the post-activation redirect, and adding the settings link.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */

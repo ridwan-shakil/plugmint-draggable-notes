@@ -6,7 +6,7 @@
  * of the Admin Notes plugin, following the dependency injection pattern
  * by initializing various functional classes.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */

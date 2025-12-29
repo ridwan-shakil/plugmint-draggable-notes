@@ -1,5 +1,5 @@
 === Plugmint Draggable Admin Notes ===
-Contributors: plugmint
+Contributors: ridwan25
 Tags: admin notes, dashboard notes, sticky notes, wp admin, todo list
 Requires at least: 5.5
 Tested up to: 6.9

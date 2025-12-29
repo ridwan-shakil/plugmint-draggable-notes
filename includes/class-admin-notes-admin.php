@@ -2,7 +2,7 @@
 /**
  * Admin page renderer and helpers.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */
@@ -30,8 +30,8 @@ class Admin_Notes_Admin {
 		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
 
 		add_menu_page(
-			__( 'Admin Notes', 'admin-notes' ),
-			__( 'Admin Notes', 'admin-notes' ),
+			__( 'Admin Notes', 'draggable-notes' ),
+			__( 'Admin Notes', 'draggable-notes' ),
 			$capability,
 			'admin-notes',
 			array( $this, 'render_page' ),
@@ -48,7 +48,7 @@ class Admin_Notes_Admin {
 		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
 
 		if ( ! current_user_can( $capability ) ) {
-			wp_die( esc_html_e( 'You do not have permission to view this page.', 'admin-notes' ) );
+			wp_die( esc_html_e( 'You do not have permission to view this page.', 'draggable-notes' ) );
 		}
 
 		// Get notes ordered by meta _admin_notes_order, pinned first.
@@ -58,12 +58,12 @@ class Admin_Notes_Admin {
 		<div class="wrap admin-notes-wrap">
 			<div class="notes-head-section">
 				<div class="left">
-					<h1><?php esc_html_e( 'Admin Notes', 'admin-notes' ); ?></h1>
+					<h1><?php esc_html_e( 'Admin Notes', 'draggable-notes' ); ?></h1>
 					<div>
 						<?php
 						esc_html_e(
 							'Organize your tasks with draggable sticky notes',
-							'admin-notes'
+							'draggable-notes'
 						)
 						?>
 
@@ -71,42 +71,42 @@ class Admin_Notes_Admin {
 						<div class="tooltip"> &#9432; 
 							<div class="tooltiptext">
 									
-								<strong><?php esc_html_e( 'Quick user Guide', 'admin-notes' ); ?></strong><br/>
+								<strong><?php esc_html_e( 'Quick user Guide', 'draggable-notes' ); ?></strong><br/>
 								
 								<ul>
 									<li>
-										<strong><?php esc_html_e( 'Create a note:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Click “Add New Note”. A new editable note will appear instantly.', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Create a note:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Click “Add New Note”. A new editable note will appear instantly.', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Checklists:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Add tasks, Dubble click to edit, check them off, click "X" to delete them, reorder them as needed & even move note items from one note to another! ', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Checklists:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Add tasks, Dubble click to edit, check them off, click "X" to delete them, reorder them as needed & even move note items from one note to another! ', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Drag & reorder:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Move notes around freely. The plugin saves their position automatically.', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Drag & reorder:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Move notes around freely. The plugin saves their position automatically.', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Colors:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Use preset colors or the color picker to categorize notes visually.', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Colors:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Use preset colors or the color picker to categorize notes visually.', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Visibility:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Choose who can see each note (Only Me, All Admins, Editors & above).', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Visibility:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Choose who can see each note (Only Me, All Admins, Editors & above).', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Minimize:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Click the arrow icon to collapse or expand notes. This state is saved per user.', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Minimize:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Click the arrow icon to collapse or expand notes. This state is saved per user.', 'draggable-notes' ); ?>
 									</li>
 									<li>
-										<strong><?php esc_html_e( 'Delete:  ', 'admin-notes' ); ?></strong>
-										<?php esc_html_e( ' Remove a note using the trash icon.', 'admin-notes' ); ?>
+										<strong><?php esc_html_e( 'Delete:  ', 'draggable-notes' ); ?></strong>
+										<?php esc_html_e( ' Remove a note using the trash icon.', 'draggable-notes' ); ?>
 									</li>
 								</ul>
 
 								<p>
-									<em><?php esc_html_e( 'Tips:  ', 'admin-notes' ); ?></em>
-									<?php esc_html_e( ' Keep notes short for better clarity. Use colors to mark urgency or categories. (e.g., yellow for urgent, green for completed, blue for info etc.)', 'admin-notes' ); ?>
+									<em><?php esc_html_e( 'Tips:  ', 'draggable-notes' ); ?></em>
+									<?php esc_html_e( ' Keep notes short for better clarity. Use colors to mark urgency or categories. (e.g., yellow for urgent, green for completed, blue for info etc.)', 'draggable-notes' ); ?>
 								</p>
 								
 							</div>
@@ -115,7 +115,7 @@ class Admin_Notes_Admin {
 				</div>
 				<div class="right">
 					<p class="admin-notes-actions">
-						<button id="admin-notes-add" class="button button-primary"><?php esc_html_e( '+ Add New Note', 'admin-notes' ); ?></button>
+						<button id="admin-notes-add" class="button button-primary"><?php esc_html_e( '+ Add New Note', 'draggable-notes' ); ?></button>
 					</p>
 				</div>
 			</div>
@@ -256,20 +256,20 @@ class Admin_Notes_Admin {
 				aria-level="3"
 				style="background:<?php echo esc_attr( $color ); ?>; border-top: 4px solid color-mix(in srgb, <?php echo esc_attr( $color ); ?> 80%, black 20%); ">
 
-			<span class="admin-note-drag-handle" title="<?php esc_attr_e( 'Drag to reorder', 'admin-notes' ); ?>">::</span>
+			<span class="admin-note-drag-handle" title="<?php esc_attr_e( 'Drag to reorder', 'draggable-notes' ); ?>">::</span>
 
 			<input class="admin-note-title"
 					value="<?php echo esc_attr( $title ); ?>"
-					aria-label="<?php esc_attr_e( 'Note title', 'admin-notes' ); ?>" />
+					aria-label="<?php esc_attr_e( 'Note title', 'draggable-notes' ); ?>" />
 
 			<div class="admin-note-actions">
 				<button class="admin-note-minimize"
-						title="<?php esc_attr_e( 'Minimize', 'admin-notes' ); ?>">
+						title="<?php esc_attr_e( 'Minimize', 'draggable-notes' ); ?>">
 					<?php echo $collapsed ? '&#9654;' : '&#9660;'; ?>
 				</button>
 
 				<button class="admin-note-delete"
-						title="<?php esc_attr_e( 'Delete', 'admin-notes' ); ?>">🗑</button>
+						title="<?php esc_attr_e( 'Delete', 'draggable-notes' ); ?>">🗑</button>
 			</div>
 		</header>
 
@@ -294,7 +294,7 @@ class Admin_Notes_Admin {
 						</label>
 
 						<button class="check-remove"
-								aria-label="<?php esc_attr_e( 'Remove task', 'admin-notes' ); ?>">✕
+								aria-label="<?php esc_attr_e( 'Remove task', 'draggable-notes' ); ?>">✕
 						</button>
 					</li>
 				<?php endforeach; ?>
@@ -303,7 +303,7 @@ class Admin_Notes_Admin {
 			<div class="admin-note-add">
 				<input type="text"
 						class="admin-note-add-input"
-						placeholder="<?php esc_attr_e( '+ Add a task and press Enter', 'admin-notes' ); ?>" />
+						placeholder="<?php esc_attr_e( '+ Add a task and press Enter', 'draggable-notes' ); ?>" />
 			</div>
 
 			<div class="admin-note-footer">
@@ -337,18 +337,18 @@ class Admin_Notes_Admin {
 					<select class="admin-note-visibility-select" data-note-id="<?php echo esc_attr( $post_id ); ?>">
 						<option value="only_me" 
 							<?php selected( $visibility, 'only_me' ); ?> style="background: <?php echo esc_attr( $color ); ?> ;" >
-							<?php esc_html_e( '🔒 Only Me', 'admin-notes' ); ?>
+							<?php esc_html_e( '🔒 Only Me', 'draggable-notes' ); ?>
 						</option>
 
 						<option value="all_admins" 
 							<?php selected( $visibility, 'all_admins' ); ?> style="background: <?php echo esc_attr( $color ); ?> ;" >
-							<?php esc_html_e( ' 👁️ All Admins', 'admin-notes' ); ?>
+							<?php esc_html_e( ' 👁️ All Admins', 'draggable-notes' ); ?>
 						</option>
 
 						<option value="editors_and_above" 
 							<?php selected( $visibility, 'editors_and_above' ); ?> 
 							style="background: <?php echo esc_attr( $color ); ?> " >
-							<?php esc_html_e( '👨‍👨‍👦 Editors & above', 'admin-notes' ); ?>
+							<?php esc_html_e( '👨‍👨‍👦 Editors & above', 'draggable-notes' ); ?>
 						</option>
 					</select>
 				</div>

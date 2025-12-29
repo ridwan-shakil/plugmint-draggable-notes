@@ -5,7 +5,7 @@
  * Handles the registration and enqueuing of CSS styles and JavaScript scripts
  * required for the Admin Notes plugin administration pages.
  *
- * @package admin-notes
+ * @package draggable-notes
  * @since 1.0.0
  * @author MD.Ridwan <ridwansweb@email.com>
  */
@@ -66,8 +66,8 @@ class Admin_Notes_Assets {
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'nonce'    => wp_create_nonce( 'admin_notes_nonce' ),
 					'strings'  => array(
-						'saving' => __( 'Saving...', 'admin-notes' ),
-						'saved'  => __( 'Saved', 'admin-notes' ),
+						'saving' => __( 'Saving...', 'draggable-notes' ),
+						'saved'  => __( 'Saved', 'draggable-notes' ),
 					),
 				)
 			);

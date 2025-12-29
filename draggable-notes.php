@@ -5,7 +5,7 @@
  * Version:           1.0.0
  * Author:            MD.Ridwan
  * Author URI:        https://github.com/ridwan-shakil
- * Text Domain:       admin-notes
+ * Text Domain:       draggable-notes
  * Domain Path:       /languages
  * License:           GPLv2 or later
  */
