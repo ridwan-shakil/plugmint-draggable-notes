@@ -29,7 +29,7 @@ class Admin_Notes_Admin {
 	 * Add Admin Notes top-level menu.
 	 */
 	public function add_menu_page() {
-		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
+		$capability = apply_filters( 'plugmint_notes_capability', 'edit_posts' );
 
 		add_menu_page(
 			__( 'Admin Notes', 'draggable-notes' ),
@@ -47,7 +47,7 @@ class Admin_Notes_Admin {
 	 */
 	public function render_page() {
 		// Capability check.
-		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
+		$capability = apply_filters( 'plugmint_notes_capability', 'edit_posts' );
 
 		if ( ! current_user_can( $capability ) ) {
 			wp_die( esc_html_e( 'You do not have permission to view this page.', 'draggable-notes' ) );

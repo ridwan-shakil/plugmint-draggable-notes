@@ -17,7 +17,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 /**
  * 1. Delete all posts of the custom post type
  */
-$admin_notes = get_posts(
+$plugmint_notes = get_posts(
 	array(
 		'post_type'      => 'admin_note',
 		'posts_per_page' => -1,
@@ -26,8 +26,8 @@ $admin_notes = get_posts(
 	)
 );
 
-if ( $admin_notes ) {
-	foreach ( $admin_notes as $note_id ) {
-		wp_delete_post( $post_id, true );
+if ( $plugmint_notes ) {
+	foreach ( $plugmint_notes as $plugmint_note_id ) {
+		wp_delete_post( $note_id, true );
 	}
 }

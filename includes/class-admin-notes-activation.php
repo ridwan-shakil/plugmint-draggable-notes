@@ -75,7 +75,7 @@ class Admin_Notes_Activation {
 		$link = sprintf(
 			'<a href="%s" style="color:#2271b1">%s</a>',
 			admin_url( 'admin.php?page=admin-notes' ),
-			__( 'Settings', 'admin-notes' )
+			__( 'Settings', 'draggable-notes' )
 		);
 
 		array_push( $links, $link );

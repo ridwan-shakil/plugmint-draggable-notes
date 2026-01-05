@@ -322,7 +322,7 @@ class Admin_Notes_Ajax {
 	 */
 	protected function verify_request() {
 		// Capability check.
-		$capability = apply_filters( 'admin_notes_capability', 'edit_posts' );
+		$capability = apply_filters( 'plugmint_notes_capability', 'edit_posts' );
 		if ( ! current_user_can( $capability ) ) {
 			wp_send_json_error( array( 'message' => __( 'Insufficient permissions', 'draggable-notes' ) ) );
 		}
