@@ -3,14 +3,16 @@
  * Main Plugin Singleton.
  *
  * @since 1.0.0
- *
- * @package Draggable_Notes
+ * @package draggable-notes
  */
 
 namespace Draggable_Notes\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Main Plugin class to create singleton instance.
+ */
 final class Plugin {
 
 	/**

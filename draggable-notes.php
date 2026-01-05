@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Plugmint - Draggable Notes For Admin
+ * Plugin Name:       Plugmint Draggable Notes For Admin
  * Description:       Create draggable admin notes with checklist tasks in the WP admin.
  * Version:           1.0.0
  * Author:            MD.Ridwan
@@ -8,6 +8,9 @@
  * Text Domain:       draggable-notes
  * Domain Path:       /languages
  * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @package draggable-notes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
