@@ -179,7 +179,7 @@ class Admin_Notes_Admin {
 	 * @param wp_post $post
 	 * @return bool
 	 */
-	protected function current_user_can_view_note( $user_id, $post, ) {
+	protected function current_user_can_view_note( $user_id, $post ) {
 		$visibility = get_post_meta( $post->ID, '_admin_note_visibility', true );
 
 		// Default to only_me if not set.
