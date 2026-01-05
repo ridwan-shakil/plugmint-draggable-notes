@@ -33,6 +33,14 @@ function plugmint_notes_on_activate() {
 // Load main plugin loader.
 require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-loader.php';
 
+// Include required core files.
+require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-activation.php';
+require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-cpt.php';
+require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-admin.php';
+require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-assets.php';
+require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-ajax.php';
+
+
 /**
  * Boot plugin after all plugins are loaded.
  */

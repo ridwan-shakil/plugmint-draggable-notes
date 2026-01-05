@@ -16,13 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Include required core files.
-require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-activation.php';
-require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-cpt.php';
-require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-admin.php';
-require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-assets.php';
-require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-ajax.php';
-
 
 /**
  * The main entry point and loader class for the Admin Notes plugin.
@@ -90,7 +83,7 @@ class Admin_Notes_Loader {
 		$this->cpt        = new Admin_Notes_CPT();
 		$this->admin      = new Admin_Notes_Admin();
 		$this->assets     = new Admin_Notes_Assets();
-		$this->ajax       = new \Draggable_notes\Admin\Admin_Notes_Ajax();
+		$this->ajax       = new Admin_Notes_Ajax();
 	}
 
 
