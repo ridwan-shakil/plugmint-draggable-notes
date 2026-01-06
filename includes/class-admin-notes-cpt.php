@@ -87,6 +87,7 @@ class Admin_Notes_CPT {
 		$args = array(
 			'post_type'      => 'admin_note',
 			'posts_per_page' => 1,
+			'meta_key'       => '_admin_notes_order',
 			'orderby'        => 'meta_value_num',
 			'order'          => 'DESC',
 			'fields'         => 'ids',  // faster.

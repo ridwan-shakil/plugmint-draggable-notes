@@ -97,6 +97,7 @@ class Admin_Notes_Ajax {
 		}
 
 		wp_delete_post( $post_id, true );
+		delete_post_meta( $post_id, '_admin_notes_order' );
 
 		wp_send_json_success();
 	}

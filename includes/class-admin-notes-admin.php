@@ -148,6 +148,7 @@ class Admin_Notes_Admin {
 			'post_type'      => 'admin_note',
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
+			'meta_key'       => '_admin_notes_order',
 			'orderby'        => 'meta_value_num',
 			'order'          => 'ASC',
 		);
