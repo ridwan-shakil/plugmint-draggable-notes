@@ -97,6 +97,7 @@ class Admin_Notes_Ajax {
 		}
 
 		wp_delete_post( $post_id, true );
+		delete_post_meta( $post_id, '_admin_notes_order' );
 
 		wp_send_json_success();
 	}
@@ -261,7 +262,12 @@ class Admin_Notes_Ajax {
 		}
 
 		if ( empty( $ids ) || ! is_array( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid order data', 'draggable-notes' ) ) );
+			wp_send_json_error(
+				array(
+					'message' => __( 'Invalid order data', 'draggable-notes' ),
+				)
+			);
+			return;
 		}
 
 		$index = 1;

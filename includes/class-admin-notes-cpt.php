@@ -23,8 +23,8 @@ class Admin_Notes_CPT {
 	 */
 	public function register() {
 		add_action( 'init', array( $this, 'register_cpt' ) );
-		// Ensure default order meta on save.
-		add_action( 'save_post_admin_note', array( $this, 'ensure_order_meta' ), 10, 3 );
+		// Ensure default order meta for new notes on save.
+		add_action( 'save_post_admin_note', array( $this, 'ensure_order_meta_for_new_notes' ), 10, 3 );
 	}
 
 	/**
@@ -64,11 +64,11 @@ class Admin_Notes_CPT {
 	}
 
 	/**
-	 * Ensure an order meta exists.
+	 * Setting order meta for new notes from the highest existing order + 1.
 	 *
 	 * @param int $post_id Post ID.
 	 */
-	public function ensure_order_meta( $post_id ) {
+	public function ensure_order_meta_for_new_notes( $post_id ) {
 
 		// 1. Don't run during autosave.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -87,6 +87,7 @@ class Admin_Notes_CPT {
 		$args = array(
 			'post_type'      => 'admin_note',
 			'posts_per_page' => 1,
+			'meta_key'       => '_admin_notes_order',
 			'orderby'        => 'meta_value_num',
 			'order'          => 'DESC',
 			'fields'         => 'ids',  // faster.
