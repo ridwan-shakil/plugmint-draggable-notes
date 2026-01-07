@@ -70,44 +70,41 @@ class Admin_Notes_CPT {
 	 */
 	public function ensure_order_meta_for_new_notes( $post_id ) {
 
-		// 1. Don't run during autosave.
+		// Don't run during autosave.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
-		// 2. Check existing meta.
-		$order = get_post_meta( $post_id, '_admin_notes_order', true );
-
-		// If the note already has order, do nothing.
-		if ( '' !== $order ) {
+		// If order already exists, do nothing.
+		if ( '' !== get_post_meta( $post_id, '_admin_notes_order', true ) ) {
 			return;
 		}
 
-		// 3. Query for the highest existing order using WP_Query.
-		$args = array(
-			'post_type'      => 'admin_note',
-			'posts_per_page' => 1,
-			'meta_key'       => '_admin_notes_order',
-			'orderby'        => 'meta_value_num',
-			'order'          => 'DESC',
-			'fields'         => 'ids',  // faster.
-			'no_found_rows'  => true,   // performance.
-			'cache_results'  => true,   // uses WP caching layer.
-		);
+		global $wpdb;
+		$cache_key = 'admin_notes_max_order';
+		$max_order = get_transient( $cache_key );
 
-		$query = new \WP_Query( $args );
-
-		$max_order = 0;
-
-		if ( ! empty( $query->posts ) ) {
-			$max_id    = $query->posts[0];
-			$max_order = intval( get_post_meta( $max_id, '_admin_notes_order', true ) );
+		if ( false === $max_order ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- MAX() aggregate query; cached via transients.
+			$max_order = (int) $wpdb->get_var(
+				$wpdb->prepare(
+					" SELECT MAX(CAST(pm.meta_value AS UNSIGNED))
+					FROM {$wpdb->postmeta} pm
+					INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+					WHERE pm.meta_key = %s
+					AND p.post_type = %s
+					AND p.post_status != 'trash'
+					",
+					'_admin_notes_order',
+					'admin_note'
+				)
+			);
 		}
 
-		// 4. New order = max + 1 or 1.
-		$new = ( $max_order > 0 ) ? $max_order + 1 : 1;
+		$new_order = $max_order + 1;
+		update_post_meta( $post_id, '_admin_notes_order', $new_order );
 
-		// 5. Save new order.
-		update_post_meta( $post_id, '_admin_notes_order', $new );
+		// Always update cache with the new max value.
+		set_transient( $cache_key, $new_order, MINUTE_IN_SECONDS * 30 );
 	}
 }
