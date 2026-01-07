@@ -63,7 +63,6 @@ class Admin_Notes_CPT {
 		register_post_type( 'admin_note', $args );
 	}
 
-	
 	/**
 	 * Setting order meta for new notes from the highest existing order + 1.
 	 *
@@ -86,6 +85,7 @@ class Admin_Notes_CPT {
 		$max_order = get_transient( $cache_key );
 
 		if ( false === $max_order ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- MAX() aggregate query; cached via transients.
 			$max_order = (int) $wpdb->get_var(
 				$wpdb->prepare(
 					" SELECT MAX(CAST(pm.meta_value AS UNSIGNED))
