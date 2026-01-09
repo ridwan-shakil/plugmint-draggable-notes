@@ -10,7 +10,7 @@
  * @author MD.Ridwan <ridwansweb@email.com>
  */
 
-namespace Draggable_notes\Admin;
+namespace PlugmintDraggableNotes\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

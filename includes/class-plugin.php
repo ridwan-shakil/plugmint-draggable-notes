@@ -6,7 +6,7 @@
  * @package plugmint-draggable-notes
  */
 
-namespace Draggable_Notes\Admin;
+namespace PlugmintDraggableNotes\Admin;
 
 defined( 'ABSPATH' ) || exit;
 

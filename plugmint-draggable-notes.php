@@ -38,7 +38,7 @@ require_once PLUGMINT_NOTES_PATH . 'includes/class-admin-notes-ajax.php';
  * @return void
  */
 function plugmint_notes_on_activate() {
-	$activation = new Draggable_Notes\Admin\Admin_Notes_Activation();
+	$activation = new PlugmintDraggableNotes\Admin\Admin_Notes_Activation();
 	$activation->run_activation();
 }
 register_activation_hook( __FILE__, 'plugmint_notes_on_activate' );
@@ -49,6 +49,6 @@ register_activation_hook( __FILE__, 'plugmint_notes_on_activate' );
  * @return void
  */
 function plugmint_notes_run() {
-	Draggable_Notes\Admin\Plugin::instance();
+	PlugmintDraggableNotes\Admin\Plugin::instance();
 }
 add_action( 'plugins_loaded', 'plugmint_notes_run' );
