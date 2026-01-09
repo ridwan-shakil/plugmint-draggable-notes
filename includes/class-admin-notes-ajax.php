@@ -335,7 +335,7 @@ class Admin_Notes_Ajax {
 
 		// Nonce verification.
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $nonce, 'admin_notes_nonce' ) ) {
+		if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $nonce, 'pdan_admin_notes_nonce' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid nonce', 'plugmint-draggable-notes' ) ) );
 		}
 	}

@@ -66,7 +66,7 @@ class Admin_Notes_Assets {
 				'pdanAdminNotes',
 				array(
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
-					'nonce'    => wp_create_nonce( 'admin_notes_nonce' ),
+					'nonce'    => wp_create_nonce( 'pdan_admin_notes_nonce' ),
 					'strings'  => array(
 						'saving' => __( 'Saving...', 'plugmint-draggable-notes' ),
 						'saved'  => __( 'Saved', 'plugmint-draggable-notes' ),
