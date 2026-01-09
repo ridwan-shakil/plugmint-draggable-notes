@@ -12,7 +12,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 0 0 1px rgb(0, 0, 0);
+	box-shadow: 0 0 7px 1px rgb(113 113 113);
 	position: sticky;
 	top: 0px;
 	z-index: 99;
