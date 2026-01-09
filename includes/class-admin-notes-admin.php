@@ -145,7 +145,7 @@ class Admin_Notes_Admin {
 	 */
 	public function get_notes_for_display() {
 		$args = array(
-			'post_type'      => 'admin_note',
+			'post_type'      => 'pdan_admin_note',
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 			'meta_key'       => '_admin_notes_order',

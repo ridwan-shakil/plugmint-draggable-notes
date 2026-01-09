@@ -39,7 +39,7 @@ class Loader {
 	/**
 	 * Holds the Admin_Notes_CPT instance.
 	 *
-	 * Manages the registration of the 'admin_note' Custom Post Type.
+	 * Manages the registration of the 'pdan_admin_note' Custom Post Type.
 	 *
 	 * @var Admin_Notes_CPT
 	 */

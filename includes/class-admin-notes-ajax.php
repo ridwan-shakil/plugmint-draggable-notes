@@ -55,7 +55,7 @@ class Admin_Notes_Ajax {
 		$defaults = array(
 			'post_title'  => __( 'Untitled Note', 'plugmint-draggable-notes' ),
 			'post_status' => 'publish',
-			'post_type'   => 'admin_note',
+			'post_type'   => 'pdan_admin_note',
 			'post_author' => get_current_user_id(),
 		);
 
@@ -88,7 +88,7 @@ class Admin_Notes_Ajax {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verification is performed in $this->verify_request().
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'plugmint-draggable-notes' ) ) );
 		}
 
@@ -116,7 +116,7 @@ class Admin_Notes_Ajax {
 		$title   = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : '';
 		/* phpcs:enable */
 
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error();
 		}
 
@@ -147,7 +147,7 @@ class Admin_Notes_Ajax {
 		$post_id  = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$check_js = isset( $_POST['checklist'] ) ? sanitize_text_field( wp_unslash( $_POST['checklist'] ) ) : '[]';
 		/* phpcs:enable */
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error();
 		}
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -189,7 +189,7 @@ class Admin_Notes_Ajax {
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$color   = isset( $_POST['color'] ) ? sanitize_hex_color( wp_unslash( $_POST['color'] ) ) : '';
 		/* phpcs:enable */
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error();
 		}
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -216,7 +216,7 @@ class Admin_Notes_Ajax {
 		$post_id = isset( $_POST['note_id'] ) ? intval( $_POST['note_id'] ) : 0;
 		$state   = isset( $_POST['state'] ) ? boolval( $_POST['state'] ) : false;
 		/* phpcs:enable */
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error();
 		}
 		$user_id = get_current_user_id();
@@ -272,7 +272,7 @@ class Admin_Notes_Ajax {
 
 		$index = 1;
 		foreach ( $ids as $post_id ) {
-			if ( $post_id && 'admin_note' === get_post_type( $post_id ) ) {
+			if ( $post_id && 'pdan_admin_note' === get_post_type( $post_id ) ) {
 				update_post_meta( $post_id, '_admin_notes_order', $index );
 				++$index;
 			}
@@ -296,7 +296,7 @@ class Admin_Notes_Ajax {
 		/* phpcs:enable */
 		$allowed = array( 'only_me', 'all_admins', 'editors_and_above' );
 
-		if ( ! $post_id || 'admin_note' !== get_post_type( $post_id ) ) {
+		if ( ! $post_id || 'pdan_admin_note' !== get_post_type( $post_id ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid note ID', 'plugmint-draggable-notes' ) ) );
 		}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Register the admin_note CPT.
+ * Register the pdan_admin_note CPT.
  *
  * @package plugmint-draggable-notes
  * @since 1.0.0
@@ -24,11 +24,11 @@ class Admin_Notes_CPT {
 	public function register() {
 		add_action( 'init', array( $this, 'register_cpt' ) );
 		// Ensure default order meta for new notes on save.
-		add_action( 'save_post_admin_note', array( $this, 'ensure_order_meta_for_new_notes' ), 10, 3 );
+		add_action( 'save_post_pdan_admin_note', array( $this, 'ensure_order_meta_for_new_notes' ), 10, 3 );
 	}
 
 	/**
-	 * Register custom post type admin_note.
+	 * Register custom post type pdan_admin_note.
 	 *
 	 * @return void
 	 */
@@ -60,7 +60,7 @@ class Admin_Notes_CPT {
 			'show_in_rest'    => false,
 		);
 
-		register_post_type( 'admin_note', $args );
+		register_post_type( 'pdan_admin_note', $args );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Admin_Notes_CPT {
 					AND p.post_status != 'trash'
 					",
 					'_admin_notes_order',
-					'admin_note'
+					'pdan_admin_note'
 				)
 			);
 		}
