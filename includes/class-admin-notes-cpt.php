@@ -76,12 +76,12 @@ class Admin_Notes_CPT {
 		}
 
 		// If order already exists, do nothing.
-		if ( '' !== get_post_meta( $post_id, '_admin_notes_order', true ) ) {
+		if ( '' !== get_post_meta( $post_id, 'pdan_order_meta', true ) ) {
 			return;
 		}
 
 		global $wpdb;
-		$cache_key = 'admin_notes_max_order';
+		$cache_key = 'pdan_notes_max_order';
 		$max_order = get_transient( $cache_key );
 
 		if ( false === $max_order ) {
@@ -95,14 +95,14 @@ class Admin_Notes_CPT {
 					AND p.post_type = %s
 					AND p.post_status != 'trash'
 					",
-					'_admin_notes_order',
+					'pdan_order_meta',
 					'pdan_admin_note'
 				)
 			);
 		}
 
 		$new_order = $max_order + 1;
-		update_post_meta( $post_id, '_admin_notes_order', $new_order );
+		update_post_meta( $post_id, 'pdan_order_meta', $new_order );
 
 		// Always update cache with the new max value.
 		set_transient( $cache_key, $new_order, MINUTE_IN_SECONDS * 30 );

@@ -97,7 +97,7 @@ class Admin_Notes_Ajax {
 		}
 
 		wp_delete_post( $post_id, true );
-		delete_post_meta( $post_id, '_admin_notes_order' );
+		delete_post_meta( $post_id, 'pdan_order_meta' );
 
 		wp_send_json_success();
 	}
@@ -171,7 +171,7 @@ class Admin_Notes_Ajax {
 			);
 		}
 
-		update_post_meta( $post_id, '_admin_notes_checklist', wp_json_encode( $clean ) );
+		update_post_meta( $post_id, 'pdan_checklist_meta', wp_json_encode( $clean ) );
 
 		wp_send_json_success();
 	}
@@ -197,7 +197,7 @@ class Admin_Notes_Ajax {
 		}
 
 		if ( $color ) {
-			update_post_meta( $post_id, '_admin_notes_color', $color );
+			update_post_meta( $post_id, 'pdan_color_meta', $color );
 		}
 
 		wp_send_json_success();
@@ -220,7 +220,7 @@ class Admin_Notes_Ajax {
 			wp_send_json_error();
 		}
 		$user_id = get_current_user_id();
-		$meta    = get_user_meta( $user_id, 'admin_notes_minimized', true );
+		$meta    = get_user_meta( $user_id, 'pdan_minimized', true );
 		if ( ! is_array( $meta ) ) {
 			$meta = array();
 		}
@@ -233,7 +233,7 @@ class Admin_Notes_Ajax {
 			$meta = array_diff( $meta, array( $post_id ) );
 		}
 
-		update_user_meta( $user_id, 'admin_notes_minimized', array_values( $meta ) );
+		update_user_meta( $user_id, 'pdan_minimized', array_values( $meta ) );
 
 		wp_send_json_success();
 	}
@@ -241,7 +241,7 @@ class Admin_Notes_Ajax {
 	/**
 	 * Saves the display order of notes.
 	 *
-	 * Expects an array of post IDs in the desired order. Updates '_admin_notes_order' post meta.
+	 * Expects an array of post IDs in the desired order. Updates 'pdan_order_meta' post meta.
 	 *
 	 * @return void
 	 */
@@ -273,7 +273,7 @@ class Admin_Notes_Ajax {
 		$index = 1;
 		foreach ( $ids as $post_id ) {
 			if ( $post_id && 'pdan_admin_note' === get_post_type( $post_id ) ) {
-				update_post_meta( $post_id, '_admin_notes_order', $index );
+				update_post_meta( $post_id, 'pdan_order_meta', $index );
 				++$index;
 			}
 		}
@@ -284,7 +284,7 @@ class Admin_Notes_Ajax {
 	/**
 	 * Saves the visibility setting (e.g., 'only_me', 'all_admins') for a note.
 	 *
-	 * Updates the '_admin_note_visibility' post meta.
+	 * Updates the 'pdan_visibility_meta' post meta.
 	 *
 	 * @return void
 	 */
@@ -309,12 +309,12 @@ class Admin_Notes_Ajax {
 		}
 
 		// Check if the value is actually changing.
-		$current_visibility = get_post_meta( $post_id, '_admin_note_visibility', true );
+		$current_visibility = get_post_meta( $post_id, 'pdan_visibility_meta', true );
 		if ( $current_visibility === $visibility ) {
 			// No update needed, return success anyway since the desired state is met.
 			wp_send_json_success();
 		}
-		update_post_meta( $post_id, '_admin_note_visibility', $visibility );
+		update_post_meta( $post_id, 'pdan_visibility_meta', $visibility );
 
 		wp_send_json_success();
 	}

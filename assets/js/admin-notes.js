@@ -205,7 +205,7 @@ jQuery(function ($) {
 		 * Delete card
 		 * ---------------------- */
 		$card.find(".admin-note-delete").on("click", function () {
-			if (!confirm("Delete this note?")) return;
+			if (!confirm("Are you sure you want to delete this note?")) return;
 
 			// instantly hide from frontend
 			$(this).closest(".admin-note-card").hide();

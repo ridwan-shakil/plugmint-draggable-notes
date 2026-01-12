@@ -53,7 +53,7 @@ class Admin_Notes_Admin {
 			wp_die( esc_html_e( 'You do not have permission to view this page.', 'plugmint-draggable-notes' ) );
 		}
 
-		// Get notes ordered by meta _admin_notes_order, pinned first.
+		// Get notes ordered by meta pdan_order_meta, pinned first.
 		$notes = $this->get_notes_for_display();
 
 		?>
@@ -148,7 +148,7 @@ class Admin_Notes_Admin {
 			'post_type'      => 'pdan_admin_note',
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
-			'meta_key'       => '_admin_notes_order',
+			'meta_key'       => 'pdan_order_meta',
 			'orderby'        => 'meta_value_num',
 			'order'          => 'ASC',
 		);
@@ -181,7 +181,7 @@ class Admin_Notes_Admin {
 	 * @return bool
 	 */
 	protected function current_user_can_view_note( $user_id, $post ) {
-		$visibility = get_post_meta( $post->ID, '_admin_note_visibility', true );
+		$visibility = get_post_meta( $post->ID, 'pdan_visibility_meta', true );
 
 		// Default to only_me if not set.
 		if ( '' === $visibility ) {
@@ -231,9 +231,9 @@ class Admin_Notes_Admin {
 		$title   = get_the_title( $post_id );
 
 		$meta  = get_post_meta( $post_id );
-		$color = isset( $meta['_admin_notes_color'][0] ) ? sanitize_hex_color( $meta['_admin_notes_color'][0] ) : '#fff9c4';
+		$color = isset( $meta['pdan_color_meta'][0] ) ? sanitize_hex_color( $meta['pdan_color_meta'][0] ) : '#fff9c4';
 
-		$check_raw = isset( $meta['_admin_notes_checklist'][0] ) ? wp_unslash( $meta['_admin_notes_checklist'][0] ) : '[]';
+		$check_raw = isset( $meta['pdan_checklist_meta'][0] ) ? wp_unslash( $meta['pdan_checklist_meta'][0] ) : '[]';
 		$check     = json_decode( $check_raw );
 
 		if ( ! is_array( $check ) ) {
@@ -241,11 +241,11 @@ class Admin_Notes_Admin {
 		}
 
 		// Visibility.
-		$visibility = get_post_meta( $post_id, '_admin_note_visibility', true );
+		$visibility = get_post_meta( $post_id, 'pdan_visibility_meta', true );
 		$visibility = $visibility ? sanitize_key( $visibility ) : 'only_me';
 
 		// Collapsed state.
-		$user_min  = get_user_meta( get_current_user_id(), 'admin_notes_minimized', true );
+		$user_min  = get_user_meta( get_current_user_id(), 'pdan_minimized', true );
 		$collapsed = ( is_array( $user_min ) && in_array( $post_id, $user_min, true ) );
 
 		ob_start();
