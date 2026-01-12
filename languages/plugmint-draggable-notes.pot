@@ -2,35 +2,35 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Plugmint Draggable Notes For Admin 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/draggable-notes\n"
+"Project-Id-Version: Plugmint – Draggable Admin Notes 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugmint-draggable-notes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-06T10:15:19+01:00\n"
+"POT-Creation-Date: 2026-01-12T08:34:11+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: draggable-notes\n"
+"X-Domain: plugmint-draggable-notes\n"
 
 #. Plugin Name of the plugin
-#: draggable-notes.php
-msgid "Plugmint Draggable Notes For Admin"
+#: plugmint-draggable-notes.php
+msgid "Plugmint – Draggable Admin Notes"
 msgstr ""
 
 #. Description of the plugin
-#: draggable-notes.php
+#: plugmint-draggable-notes.php
 msgid "Create draggable admin notes with checklist tasks in the WP admin."
 msgstr ""
 
 #. Author of the plugin
-#: draggable-notes.php
+#: plugmint-draggable-notes.php
 msgid "MD.Ridwan"
 msgstr ""
 
 #. Author URI of the plugin
-#: draggable-notes.php
+#: plugmint-draggable-notes.php
 msgid "https://github.com/ridwan-shakil"
 msgstr ""
 
@@ -126,39 +126,39 @@ msgstr ""
 msgid "+ Add New Note"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:261
+#: includes/class-admin-notes-admin.php:262
 msgid "Drag to reorder"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:265
+#: includes/class-admin-notes-admin.php:266
 msgid "Note title"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:269
+#: includes/class-admin-notes-admin.php:270
 msgid "Minimize"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:274
+#: includes/class-admin-notes-admin.php:275
 msgid "Delete"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:299
+#: includes/class-admin-notes-admin.php:300
 msgid "Remove task"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:308
+#: includes/class-admin-notes-admin.php:309
 msgid "+ Add a task and press Enter"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:342
+#: includes/class-admin-notes-admin.php:343
 msgid "🔒 Only Me"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:347
+#: includes/class-admin-notes-admin.php:348
 msgid " 👁️ All Admins"
 msgstr ""
 
-#: includes/class-admin-notes-admin.php:353
+#: includes/class-admin-notes-admin.php:354
 msgid "👨‍👨‍👦 Editors & above"
 msgstr ""
 
@@ -168,27 +168,27 @@ msgid "Untitled Note"
 msgstr ""
 
 #: includes/class-admin-notes-ajax.php:92
-#: includes/class-admin-notes-ajax.php:294
+#: includes/class-admin-notes-ajax.php:300
 msgid "Invalid note ID"
 msgstr ""
 
 #: includes/class-admin-notes-ajax.php:96
-#: includes/class-admin-notes-ajax.php:123
-#: includes/class-admin-notes-ajax.php:153
-#: includes/class-admin-notes-ajax.php:302
-#: includes/class-admin-notes-ajax.php:327
+#: includes/class-admin-notes-ajax.php:124
+#: includes/class-admin-notes-ajax.php:154
+#: includes/class-admin-notes-ajax.php:308
+#: includes/class-admin-notes-ajax.php:333
 msgid "Insufficient permissions"
 msgstr ""
 
-#: includes/class-admin-notes-ajax.php:264
+#: includes/class-admin-notes-ajax.php:267
 msgid "Invalid order data"
 msgstr ""
 
-#: includes/class-admin-notes-ajax.php:298
+#: includes/class-admin-notes-ajax.php:304
 msgid "Invalid visibility value"
 msgstr ""
 
-#: includes/class-admin-notes-ajax.php:333
+#: includes/class-admin-notes-ajax.php:339
 msgid "Invalid nonce"
 msgstr ""
 
