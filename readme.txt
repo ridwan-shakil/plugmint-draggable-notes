@@ -1,6 +1,6 @@
 === Plugmint – Draggable Admin Notes ===
 Contributors: ridwan25
-Tags: admin notes, dashboard notes, sticky notes, wp admin, todo list
+Tags: note, notes, admin notes, dashboard notes, wordpress notes
 Requires at least: 5.5
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -67,5 +67,6 @@ Yes, please contact me at ridwansweb@gmail.com to build your desired wp plugin.
 
 = 1.0.0 =
 * Initial release.
+
 
 
