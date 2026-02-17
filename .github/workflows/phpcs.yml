@@ -8,10 +8,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: shalior/wordpress-phpcs-action@master
         with:
-          github_token: ${{ secrets.github_token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           use_default_configuration_file: true
           phpcs_args: "-n" # ignore warnings
       - uses: stefanzweifel/git-auto-commit-action@v4 # auto commit the fixes action for GitHub
         with:
           commit_message: Fix PHPCS errors
-	
