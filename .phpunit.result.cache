@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"Test_Proof::test_phpunit_is_working":0.001,"RsTests::test_some_function_return_4":0.019,"Test_Sample::test_true_is_true":0.002,"Sample_Test::test_true_is_true":0.269}}
