@@ -39,7 +39,7 @@ class Admin_Notes_Activation {
 	public function init() {
 
 		// Handle redirect after activation.
-		add_action( 'admin_init', array( $this, 'handle_redirect' ) );
+		add_action( 'admin_init', array( $this, 'handle_redirect' ));
 
 		// Add settings link.
 		add_filter(
@@ -57,7 +57,7 @@ class Admin_Notes_Activation {
 			return;
 		}
 
-		if ( get_option( 'pdan_admin_notes_do_activation_redirect', false ) ) {
+		if ( get_option( 'pdan_admin_notes_do_activation_redirect' ) ) {
 			delete_option( 'pdan_admin_notes_do_activation_redirect' );
 
 			wp_safe_redirect( admin_url( 'admin.php?page=pdan-admin-notes' ) );
